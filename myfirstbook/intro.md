@@ -1,9 +1,10 @@
 # Welcome to my Jupyter Book
 
-Visaviern Mosqueda
-DS4A
+## Visaviern Mosqueda
 
-Check out the content pages to see more.
+## DS4A
+
+Check out the content pages below:
 
 ```{tableofcontents}
 ```
