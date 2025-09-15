@@ -1,8 +1,8 @@
 # Welcome to my Jupyter Book
 
-## Visaviern Mosqueda
+Visaviern Mosqueda
 
-## DS4A
+DS4A
 
 Check out the content pages below:
 
