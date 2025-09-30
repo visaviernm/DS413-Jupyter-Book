@@ -11,8 +11,7 @@ parts:
 
   - caption: Laboratory
     chapters:
-      - file: Laboratory/Laboratory_Task_1poetry run jupyter-book build myfirstbook
-
+      - file: Laboratory/Laboratory_Task_1
       - file: Laboratory/Laboratory_Task_2
       - file: Laboratory/Laboratory_Task_3
 
