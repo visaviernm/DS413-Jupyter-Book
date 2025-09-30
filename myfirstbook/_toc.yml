@@ -3,5 +3,18 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: Lab_Task_3.ipynb
+
+parts:
+  - caption: Lectures
+    chapters:
+      - file: Lectures/Lecture_Task_1
+
+  - caption: Laboratory
+    chapters:
+      - file: Laboratory/Laboratory_Task_1
+      - file: Laboratory/Laboratory_Task_2
+      - file: Laboratory/Laboratory_Task_3
+
+  - caption: Projects
+    chapters:
+      - file: Projects/Project_1

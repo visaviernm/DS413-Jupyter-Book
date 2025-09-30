@@ -1,8 +1,6 @@
 # Welcome to my Jupyter Book
 
-Visaviern Mosqueda
-
-DS4A
+This Jupyter Book documents my laboratory and lecture tasks and projects for DS413: Deep Learning. It serves as a record of my work throughout the course and reflects the concepts, methods, and applications I learned.
 
 Check out the content pages below:
 
