@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Laboratory Task 5 - Pytorch Exercise &#8212; My sample book</title>
+    <title>Laboratory Task 5 &#8212; My sample book</title>
   
   
   
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_2.html">Laboratory Task 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_3.html">Laboratory Task 3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_4.html">Laboratory Task 4</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Laboratory Task 5 - Pytorch Exercise</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Laboratory Task 5</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
 <ul class="nav bd-sidenav">
@@ -379,7 +379,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Laboratory Task 5 - Pytorch Exercise</h1>
+    <h1>Laboratory Task 5</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,6 +389,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-exercise">Pytorch Exercise</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#name-visaviern-mosqueda">Name: Visaviern Mosqueda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#year-section-ds4a">Year &amp; Section: DS4A</a></li>
 </ul>
@@ -402,8 +403,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="laboratory-task-5-pytorch-exercise">
-<h1>Laboratory Task 5 - Pytorch Exercise<a class="headerlink" href="#laboratory-task-5-pytorch-exercise" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="laboratory-task-5">
+<h1>Laboratory Task 5<a class="headerlink" href="#laboratory-task-5" title="Link to this heading">#</a></h1>
+<section id="pytorch-exercise">
+<h2>Pytorch Exercise<a class="headerlink" href="#pytorch-exercise" title="Link to this heading">#</a></h2>
+</section>
 <section id="name-visaviern-mosqueda">
 <h2>Name: Visaviern Mosqueda<a class="headerlink" href="#name-visaviern-mosqueda" title="Link to this heading">#</a></h2>
 </section>
@@ -442,10 +446,10 @@ Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /home/codespace/.cac
 Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (12.8.93)
 Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (1.13.1.3)
 Requirement already satisfied: triton==3.4.0 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (3.4.0)
+Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from sympy&gt;=1.13.3-&gt;torch) (1.3.0)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from sympy&gt;=1.13.3-&gt;torch) (1.3.0)
-Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from jinja2-&gt;torch) (3.0.2)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from jinja2-&gt;torch) (3.0.2)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
@@ -497,7 +501,7 @@ Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2, 2, 1, 4, 1, 0])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([2, 4, 1, 2, 0, 4])
 </pre></div>
 </div>
 </div>
@@ -529,9 +533,9 @@ Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2, 2],
-        [1, 4],
-        [1, 0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2, 4],
+        [1, 2],
+        [0, 4]])
 </pre></div>
 </div>
 </div>
@@ -548,9 +552,9 @@ Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2],
-        [4],
-        [0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[4],
+        [2],
+        [4]])
 </pre></div>
 </div>
 </div>
@@ -567,9 +571,9 @@ Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 4,  4],
-        [ 1, 16],
-        [ 1,  0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 4, 16],
+        [ 1,  4],
+        [ 0, 16]])
 </pre></div>
 </div>
 </div>
@@ -602,9 +606,9 @@ Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[12,  6,  2],
-        [18,  6,  1],
-        [ 2,  2,  1]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[20,  8,  2],
+        [10,  4,  1],
+        [16,  4,  0]])
 </pre></div>
 </div>
 </div>
@@ -676,6 +680,7 @@ Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/codespace/.cache/pypo
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-exercise">Pytorch Exercise</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#name-visaviern-mosqueda">Name: Visaviern Mosqueda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#year-section-ds4a">Year &amp; Section: DS4A</a></li>
 </ul>
