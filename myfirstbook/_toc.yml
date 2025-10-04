@@ -11,8 +11,11 @@ parts:
 
   - caption: Laboratory
     chapters:
+      - file: Laboratory/Laboratory_Task_1
       - file: Laboratory/Laboratory_Task_2
       - file: Laboratory/Laboratory_Task_3
+      - file: Laboratory/Laboratory_Task_4
+      - file: Laboratory/Laboratory_Task_5
 
   - caption: Projects
     chapters:
