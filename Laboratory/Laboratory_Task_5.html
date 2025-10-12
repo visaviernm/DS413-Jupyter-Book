@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Laboratory/Laboratory_Task_5';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Laboratory Task 4" href="Laboratory_Task_4.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +123,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -179,7 +178,19 @@
                 </a>
             </li>
         </ul>
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Lectures/Lecture_Task_1.html">Lecture Task 1</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Laboratory Tasks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_1.html">Laboratory Task 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_2.html">Laboratory Task 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_3.html">Laboratory Task 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_4.html">Laboratory Task 4</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Laboratory Task 5</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -409,13 +420,13 @@ Requirement already satisfied: jinja2 in /home/codespace/.cache/pypoetry/virtual
 Requirement already satisfied: fsspec in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (2025.9.0)
 Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (12.8.93)
 Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (12.8.90)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (12.8.90)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (12.8.90)
 Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (9.10.2.21)
 Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (12.8.4.1)
 Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (11.3.3.83)
-Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (10.3.9.90)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (10.3.9.90)
 Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (11.7.3.90)
 Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (12.5.8.93)
 Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /home/codespace/.cache/pypoetry/virtualenvs/ds413-jupyter-book-o3Nm-7iB-py3.12/lib/python3.12/site-packages (from torch) (0.7.1)
@@ -479,7 +490,7 @@ Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cach
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3, 2, 3, 3, 0, 0])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([1, 0, 3, 0, 4, 4])
 </pre></div>
 </div>
 </div>
@@ -511,9 +522,9 @@ Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cach
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[3, 2],
-        [3, 3],
-        [0, 0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[1, 0],
+        [3, 0],
+        [4, 4]])
 </pre></div>
 </div>
 </div>
@@ -530,9 +541,9 @@ Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cach
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[2],
-        [3],
-        [0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0],
+        [0],
+        [4]])
 </pre></div>
 </div>
 </div>
@@ -549,9 +560,9 @@ Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cach
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[9, 4],
-        [9, 9],
-        [0, 0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 1,  0],
+        [ 9,  0],
+        [16, 16]])
 </pre></div>
 </div>
 </div>
@@ -584,9 +595,9 @@ Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cach
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[14,  8,  3],
-        [18,  9,  3],
-        [ 0,  0,  0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[ 2,  2,  1],
+        [ 6,  6,  3],
+        [24, 12,  4]])
 </pre></div>
 </div>
 </div>
@@ -624,6 +635,15 @@ Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /home/codespace/.cach
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Laboratory_Task_4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Laboratory Task 4</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
