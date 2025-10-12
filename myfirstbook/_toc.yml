@@ -5,17 +5,13 @@ format: jb-book
 root: intro
 
 chapters:
-  - file: Lectures
-    title: Lectures
-    sections:
-      - file: Lectures/Lecture_Task_1
+  - title: Lectures
+    file: Lectures/Lecture_Task_1
 
-  - file: Laboratory
-    title: Laboratory Tasks
-    sections:
-      - file: Laboratory/Laboratory_Task_1
-      - file: Laboratory/Laboratory_Task_2
-      - file: Laboratory/Laboratory_Task_3
-      - file: Laboratory/Laboratory_Task_4
-      - file: Laboratory/Laboratory_Task_5
-      - file: Laboratory/Laboratory_Task_6
+  - title: Laboratory Tasks
+    file: Laboratory/Laboratory_Task_1
+    file: Laboratory/Laboratory_Task_2
+    file: Laboratory/Laboratory_Task_3
+    file: Laboratory/Laboratory_Task_4
+    file: Laboratory/Laboratory_Task_5
+    file: Laboratory/Laboratory_Task_6
