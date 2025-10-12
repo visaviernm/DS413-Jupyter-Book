@@ -5,12 +5,12 @@ format: jb-book
 root: intro
 
 chapters:
-  - file: Lectures/index
+  - file: Lectures
     title: Lectures
     sections:
       - file: Lectures/Lecture_Task_1
 
-  - file: Laboratory/index
+  - file: Laboratory
     title: Laboratory Tasks
     sections:
       - file: Laboratory/Laboratory_Task_1
