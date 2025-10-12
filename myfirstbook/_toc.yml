@@ -4,13 +4,15 @@
 format: jb-book
 root: intro
 
-parts:
-  - caption: Lectures
-    chapters:
+chapters:
+  - file: Lectures
+    title: Lectures
+    sections:
       - file: Lectures/Lecture_Task_1
 
-  - caption: Laboratory Tasks
-    chapters:
+  - file: Laboratory
+    title: Laboratory Tasks
+    sections:
       - file: Laboratory/Laboratory_Task_1
       - file: Laboratory/Laboratory_Task_2
       - file: Laboratory/Laboratory_Task_3
