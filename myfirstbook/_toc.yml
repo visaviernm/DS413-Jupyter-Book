@@ -4,19 +4,18 @@
 format: jb-book
 root: intro
 
-parts:
-  - caption: Lectures
-    chapters:
+chapters:
+  - file: Lectures/index
+    title: Lectures
+    sections:
       - file: Lectures/Lecture_Task_1
 
-  - caption: Laboratory
-    chapters:
+  - file: Laboratory/index
+    title: Laboratory Tasks
+    sections:
       - file: Laboratory/Laboratory_Task_1
       - file: Laboratory/Laboratory_Task_2
       - file: Laboratory/Laboratory_Task_3
       - file: Laboratory/Laboratory_Task_4
       - file: Laboratory/Laboratory_Task_5
-
-  - caption: Projects
-    chapters:
-      - file: Projects/Project_1
+      - file: Laboratory/Laboratory_Task_6
