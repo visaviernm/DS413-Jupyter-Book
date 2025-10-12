@@ -190,6 +190,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Laboratory Task 3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_4.html">Laboratory Task 4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_5.html">Laboratory Task 5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Laboratory_Task_6.html">Laboratory Task 6</a></li>
 </ul>
 
     </div>
@@ -412,7 +413,13 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>Forward Pass</strong></p>
+<p>x = np.array([1,0,1]).reshape(3,1)
+y = np.array([1]).reshape(1,1)
+lr = 0.001</p>
+<p>hwu = np.array([[0.2,-0.3], [0.4, 0.1], [-0.5, 0.2]])
+hwub = np.array([[-0.4], [0.2]])
+owu = np.array([[-0.3, -0.2]])
+owub = np.array([[0.1]])</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the ReLU activation function and derivative</span>
