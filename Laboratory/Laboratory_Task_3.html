@@ -413,16 +413,10 @@ document.write(`
 </div>
 </div>
 </div>
-<p>x = np.array([1,0,1]).reshape(3,1)
-y = np.array([1]).reshape(1,1)
-lr = 0.001</p>
-<p>hwu = np.array([[0.2,-0.3], [0.4, 0.1], [-0.5, 0.2]])
-hwub = np.array([[-0.4], [0.2]])
-owu = np.array([[-0.3, -0.2]])
-owub = np.array([[0.1]])</p>
+<p><strong>Forward Pass</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the ReLU activation function and derivative</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define ReLU activation function and derivative</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">relu</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 
@@ -435,9 +429,9 @@ owub = np.array([[0.1]])</p>
 
 <span class="c1"># Calculate weighted sum for output layer</span>
 <span class="n">wso</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">owu</span><span class="p">,</span> <span class="n">hidden</span><span class="p">)</span> <span class="o">+</span> <span class="n">owub</span>
-<span class="n">pred_output</span> <span class="o">=</span> <span class="n">wso</span> <span class="c1"># No activation function on the output, as per the manual calculation</span>
+<span class="n">pred_output</span> <span class="o">=</span> <span class="n">wso</span>
 
-<span class="c1"># Calculate the error (MSE is commonly used, but for simplicity here we use the difference)</span>
+<span class="c1"># Calculate the error</span>
 <span class="n">error</span> <span class="o">=</span> <span class="n">pred_output</span> <span class="o">-</span> <span class="n">y</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicted Output: </span><span class="si">{</span><span class="n">pred_output</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">error</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -455,7 +449,7 @@ Error: -0.9200
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate gradients for the output layer</span>
-<span class="n">delta_o</span> <span class="o">=</span> <span class="n">error</span> <span class="c1"># The derivative of the loss with respect to the output is (y_hat - y)</span>
+<span class="n">delta_o</span> <span class="o">=</span> <span class="n">error</span> <span class="c1"># The derivative of the loss with respect to the output (y_hat - y)</span>
 <span class="n">d_Wo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">delta_o</span><span class="p">,</span> <span class="n">hidden</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="n">d_bo</span> <span class="o">=</span> <span class="n">delta_o</span>
 
