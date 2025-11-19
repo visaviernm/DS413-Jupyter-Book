@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/Blog/Blog_Post';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Laboratory Task 5" href="../Laboratory/Laboratory_Task_5.html" />
+    <link rel="prev" title="Laboratory Task 6" href="../Laboratory/Laboratory_Task_6.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -189,10 +189,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_3.html">Laboratory Task 3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_4.html">Laboratory Task 4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_5.html">Laboratory Task 5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_6.html">Laboratory Task 6</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Blog</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dropout: Why Forgetting Helps Neural Networks Learn Better</a></li>
 </ul>
 
     </div>
@@ -431,8 +432,8 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="dropout-why-forgetting-helps-neural-networks-learn-better">
-<h1><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong><a class="headerlink" href="#dropout-why-forgetting-helps-neural-networks-learn-better" title="Link to this heading">#</a></h1>
-<p><strong>By: Visaviern V. Mosqueda</strong></p>
+<h1>Dropout: Why Forgetting Helps Neural Networks Learn Better<a class="headerlink" href="#dropout-why-forgetting-helps-neural-networks-learn-better" title="Link to this heading">#</a></h1>
+<p>By: Visaviern V. Mosqueda</p>
 <section id="introduction">
 <h2><strong>Introduction</strong><a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>Deep learning models are powerful, but are also very prone to overfitting, especially when trained on small datasets or overly complex architectures. One of the simplest and most effective regularization techniques to reduce overfitting is <strong>Dropout</strong>. In this blog, it will explain what is dropout and why it works, and demostrate its effects through a small experiment using MNIST.</p>
@@ -492,13 +493,14 @@ Optimizer: Adam <br></p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># import libraries</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;torch&#39;
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;torchvision&#39;
 </pre></div>
 </div>
 </div>
@@ -773,12 +775,12 @@ Epoch 20: Train Loss = 0.0208, Test Acc = 0.9845
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Laboratory/Laboratory_Task_5.html"
+       href="../Laboratory/Laboratory_Task_6.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Laboratory Task 5</p>
+        <p class="prev-next-title">Laboratory Task 6</p>
       </div>
     </a>
 </div>
