@@ -440,7 +440,9 @@ document.write(`
 <h3><strong>What is Dropout?</strong><a class="headerlink" href="#what-is-dropout" title="Link to this heading">#</a></h3>
 <p>Dropout is a regularization technique that randomly turns off a fraction of neurons during training. At each forward pass, neurons are “dropped” with probability p, meaning their output is set to 0.</p>
 <p><strong>Formula:</strong></p>
-<p>$$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$$</p>
+<p>$$
+\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)
+$$</p>
 <p>Where:</p>
 <ul class="simple">
 <li><p>$h_i$ = original activation,</p></li>
@@ -448,7 +450,9 @@ document.write(`
 <li><p>$p$ = dropout rate</p></li>
 </ul>
 <p>During inference, no neurons are dropped. Instead, activations are scaled to match expected output:</p>
-<p>$$h_i^\text{test} = (1 - p) \cdot h_i$$</p>
+<p>$$
+h_i^\text{test} = (1 - p) \cdot h_i
+$$</p>
 <p>This forces the network to not rely mostly on a specific set of neurons, this encourages a redundant feature representation, better generalization, and reduction of co-adaptation among neurons.</p>
 </section>
 <section id="why-it-works">

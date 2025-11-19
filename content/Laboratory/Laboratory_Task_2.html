@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,6 +57,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/Laboratory/Laboratory_Task_2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -194,8 +195,6 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Blog</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Blog/Blog_Post.html"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a></li>
-
-
 </ul>
 
     </div>
@@ -443,28 +442,31 @@ $</p>
 f(z) = max(0, Z_n)
 $</p>
 <p>$
-\text{hidden unit weights} =
-\begin{bmatrix}
-w_{11} &amp; = &amp; 0.2   &amp; w_{12} &amp; = &amp; -0.3 \
-w_{13} &amp; = &amp; 0.4   &amp; w_{14} &amp; = &amp; 0.1  \
+\text{hidden unit weights} =</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a0c393c9-39c2-4f37-a990-c016996c5e65">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a0c393c9-39c2-4f37-a990-c016996c5e65" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+w_{11} &amp; = &amp; 0.2   &amp; w_{12} &amp; = &amp; -0.3 \\
+w_{13} &amp; = &amp; 0.4   &amp; w_{14} &amp; = &amp; 0.1  \\
 w_{15} &amp; = &amp; -0.5  &amp; w_{16} &amp; = &amp; 0.2
-\end{bmatrix}
-$</p>
+\end{bmatrix}\]</div>
+<p>$</p>
 <p>$
-\text{output unit weights} =
-\begin{bmatrix}
-w_{21} &amp; = &amp; -0.3 \
+\text{output unit weights} =</p>
+<div class="amsmath math notranslate nohighlight" id="equation-3c086d19-d460-41d5-b5aa-9f08e5315968">
+<span class="eqno">(2)<a class="headerlink" href="#equation-3c086d19-d460-41d5-b5aa-9f08e5315968" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+w_{21} &amp; = &amp; -0.3 \\
 w_{22} &amp; = &amp; -0.2
-\end{bmatrix}
-$</p>
+\end{bmatrix}\]</div>
+<p>$</p>
 <p>$
-\theta =po
-\begin{bmatrix}
-\theta_1 &amp; = &amp; -0.4 \
-\theta_2 &amp; = &amp; 0.2 \
+\theta =po</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ae2d2dfb-6170-472d-b061-f60600bd8af2">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ae2d2dfb-6170-472d-b061-f60600bd8af2" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+\theta_1 &amp; = &amp; -0.4 \\
+\theta_2 &amp; = &amp; 0.2 \\
 \theta_3 &amp; = &amp; 0.1
-\end{bmatrix}
-$</p>
+\end{bmatrix}\]</div>
+<p>$</p>
 <br>
 </section>
 <section id="solution">
@@ -487,12 +489,13 @@ $</p>
 <br>
 <p>Hidden activations:</p>
 <p>$
-\mathbf{a} =
-\begin{bmatrix}
-0 \
+\mathbf{a} =</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1243b494-cb18-4d8d-ae36-052ee3749dfa">
+<span class="eqno">(4)<a class="headerlink" href="#equation-1243b494-cb18-4d8d-ae36-052ee3749dfa" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+0 \\
 0.1
-\end{bmatrix}
-$</p>
+\end{bmatrix}\]</div>
+<p>$</p>
 <br>
 <p><strong>Output Layer</strong></p>
 <br>
