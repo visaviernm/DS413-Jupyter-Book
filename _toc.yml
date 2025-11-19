@@ -13,6 +13,7 @@ parts:
       - file: content/Laboratory/Laboratory_Task_3
       - file: content/Laboratory/Laboratory_Task_4
       - file: content/Laboratory/Laboratory_Task_5
+      - file: content/Laboratory/Laboratory_Task_6
   - caption: "Blog"
     chapters:
       - file: content/Blog/Blog_Post
