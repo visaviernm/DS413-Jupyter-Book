@@ -1,0 +1,20 @@
+format: jb-book
+root: content/index
+
+sections:
+  - caption: "Lectures"
+    sections:
+      - file: content/Lecture/Lecture_Task_1.ipynb
+
+  - caption: "Laboratory"
+    sections:
+      - file: content/Laboratory/Laboratory_Task_1.ipynb
+      - file: content/Laboratory/Laboratory_Task_2.ipynb
+      - file: content/Laboratory/Laboratory_Task_3.ipynb
+      - file: content/Laboratory/Laboratory_Task_4.ipynb
+      - file: content/Laboratory/Laboratory_Task_5.ipynb
+      - file: content/Laboratory/Laboratory_Task_6.ipynb
+
+  - caption: "Blog"
+    sections:
+      - file: content/Blog/Blog_Post.ipynb

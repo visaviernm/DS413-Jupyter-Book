@@ -1,0 +1,5 @@
+title: "DS413 Jupyter Book"
+author: "Visaviern Mosqueda"
+logo: "logo.png"
+execute:
+  execute_notebooks: "auto"
