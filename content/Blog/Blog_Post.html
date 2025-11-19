@@ -407,8 +407,6 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><strong>Introduction</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-dropout"><strong>What is Dropout?</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
 </ul>
 </li>
@@ -442,9 +440,7 @@ document.write(`
 <h3><strong>What is Dropout?</strong><a class="headerlink" href="#what-is-dropout" title="Link to this heading">#</a></h3>
 <p>Dropout is a regularization technique that randomly turns off a fraction of neurons during training. At each forward pass, neurons are “dropped” with probability p, meaning their output is set to 0.</p>
 <p><strong>Formula:</strong></p>
-</section>
-<section id="tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">
-<h3>$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,<a class="headerlink" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p" title="Link to this heading">#</a></h3>
+<p>$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</p>
 <p>Where:</p>
 <ul class="simple">
 <li><p>$h_i$ = original activation,</p></li>
@@ -452,9 +448,7 @@ document.write(`
 <li><p>$p$ = dropout rate</p></li>
 </ul>
 <p>During inference, no neurons are dropped. Instead, activations are scaled to match expected output:</p>
-</section>
-<section id="h-i-text-test-1-p-cdot-h-i">
-<h3>$h_i^\text{test} = (1 - p) \cdot h_i$<a class="headerlink" href="#h-i-text-test-1-p-cdot-h-i" title="Link to this heading">#</a></h3>
+<p>$h_i^\text{test} = (1 - p) \cdot h_i$</p>
 <p>This forces the network to not rely mostly on a specific set of neurons, this encourages a redundant feature representation, better generalization, and reduction of co-adaptation among neurons.</p>
 </section>
 <section id="why-it-works">
@@ -801,8 +795,6 @@ Epoch 20: Train Loss = 0.0208, Test Acc = 0.9845
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><strong>Introduction</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-dropout"><strong>What is Dropout?</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
 </ul>
 </li>
