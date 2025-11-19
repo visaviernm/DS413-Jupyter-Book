@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dropout: Why Forgetting Helps Neural Networks Learn Better &#8212; DS413 Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'mybook/content/Blog/Blog_Post';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../content/index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="DS413 Jupyter Book - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.png" class="logo__image only-dark" alt="DS413 Jupyter Book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../content/index.html">
+                    Welcome to my Jupyter Book for DS413: Deep Learning
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../content/Lecture/Lecture_Task_1.html">Lecture Task 1</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Laboratory</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../content/Laboratory/Laboratory_Task_1.html">Laboratory Task 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/Laboratory/Laboratory_Task_2.html">Laboratory Task 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/Laboratory/Laboratory_Task_3.html">Laboratory Task 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/Laboratory/Laboratory_Task_4.html">Laboratory Task 4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/Laboratory/Laboratory_Task_5.html">Laboratory Task 5</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Blog</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../content/Blog/Blog_Post.html"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/visaviernm/DS413-Jupyter-Book-ver2" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/visaviernm/DS413-Jupyter-Book-ver2/edit/main/mybook/content/Blog/Blog_Post.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/visaviernm/DS413-Jupyter-Book-ver2/issues/new?title=Issue%20on%20page%20%2Fmybook/content/Blog/Blog_Post.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/mybook/content/Blog/Blog_Post.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dropout: Why Forgetting Helps Neural Networks Learn Better</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><strong>Introduction</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-dropout"><strong>What is Dropout?</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimentation-mnist-classification-with-and-without-dropout"><strong>Experimentation: MNIST Classification With and Without Dropout</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-results"><strong>Summary of Results</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-loss"><strong>Training Loss</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-accuracy"><strong>Test Accuracy</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-insights"><strong>Analysis and Insights</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion"><strong>Conclusion</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references"><strong>References</strong></a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dropout-why-forgetting-helps-neural-networks-learn-better">
+<h1><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong><a class="headerlink" href="#dropout-why-forgetting-helps-neural-networks-learn-better" title="Link to this heading">#</a></h1>
+<p><strong>By: Visaviern V. Mosqueda</strong></p>
+<section id="introduction">
+<h2><strong>Introduction</strong><a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Deep learning models are powerful, but are also very prone to overfitting, especially when trained on small datasets or overly complex architectures. One of the simplest and most effective regularization techniques to reduce overfitting is <strong>Dropout</strong>. In this blog, it will explain what is dropout and why it works, and demostrate its effects through a small experiment using MNIST.</p>
+<section id="what-is-dropout">
+<h3><strong>What is Dropout?</strong><a class="headerlink" href="#what-is-dropout" title="Link to this heading">#</a></h3>
+<p>Dropout is a regularization technique that randomly turns off a fraction of neurons during training. At each forward pass, neurons are “dropped” with probability p, meaning their output is set to 0.</p>
+<p><strong>Formula:</strong></p>
+</section>
+</section>
+</section>
+<section id="tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">
+<h1>$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,<a class="headerlink" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p" title="Link to this heading">#</a></h1>
+<p>Where:</p>
+<ul class="simple">
+<li><p>$h_i$ = original activation,</p></li>
+<li><p>$r_i$ = random mask (0 or 1),</p></li>
+<li><p>$p$ = dropout rate</p></li>
+</ul>
+<p>During inference, no neurons are dropped. Instead, activations are scaled to match expected output:</p>
+</section>
+<section id="h-i-text-test-1-p-cdot-h-i">
+<h1>$h_i^\text{test} = (1 - p) \cdot h_i$<a class="headerlink" href="#h-i-text-test-1-p-cdot-h-i" title="Link to this heading">#</a></h1>
+<p>This forces the network to not rely mostly on a specific set of neurons, this encourages a redundant feature representation, better generalization, and reduction of co-adaptation among neurons.</p>
+<section id="why-it-works">
+<h2><strong>Why it Works?</strong><a class="headerlink" href="#why-it-works" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Prevents Overfitting - By turning off neurons randomly, dropout simulates training many different “thinner” networks. This makes the final model behave like an ensemble, improving robustness.</p></li>
+<li><p>Improves Generalization - Dropout discourages the model from memorizing the training set. It encourages learning distributed representations rather than relying on a few strong feature detectors.</p></li>
+<li><p>Adds Noise to Training - This intentional noise behaves like stochastic regularization, smoothing the loss landscape and preventing sharp minima.</p></li>
+<li><p>Computationally Cheap - Dropout only requires multiplying activations by a random mask—no extra parameters added.</p></li>
+</ol>
+</section>
+<section id="experimentation-mnist-classification-with-and-without-dropout">
+<h2><strong>Experimentation: MNIST Classification With and Without Dropout</strong><a class="headerlink" href="#experimentation-mnist-classification-with-and-without-dropout" title="Link to this heading">#</a></h2>
+<p>To demonstrate dropout’s impact, Two simple MLP models on the MNIST dataset is trained and tested: <br>
+<strong>Model A</strong> — No Dropout <br>
+<strong>Model B</strong> — Dropout (p = 0.5) <br></p>
+<p>The following is the code setup: <br>
+Dataset: MNIST (28x28 digit images) <br>
+Model: Simple 2-layer MLP with 1024 hidden units <br>
+Epochs: 20 <br>
+Batch size: 128 <br>
+Optimizer: Adam <br></p>
+<p>Code Implementation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;torchvision&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dataset</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Models</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MLP_NoDropout</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MLP_Dropout</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">criterion</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">loss_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="n">loss_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">loss_list</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss_list</span><span class="p">)</span>
+
+<span class="c1"># Testing function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">criterion</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">loss_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">loss_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">loss_list</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss_list</span><span class="p">),</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;No Dropout&quot;</span><span class="p">:</span> <span class="n">MLP_NoDropout</span><span class="p">(),</span>
+    <span class="s2">&quot;Dropout (p=0.5)&quot;</span><span class="p">:</span> <span class="n">MLP_Dropout</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="n">train_losses</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">test_losses</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">test_accs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+        <span class="n">train_loss</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">criterion</span><span class="p">)</span>
+        <span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">,</span> <span class="n">criterion</span><span class="p">)</span>
+        <span class="n">train_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_loss</span><span class="p">)</span>
+        <span class="n">test_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_loss</span><span class="p">)</span>
+        <span class="n">test_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_acc</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: Train Loss = </span><span class="si">{</span><span class="n">train_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Test Acc = </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">train_losses</span><span class="p">,</span> <span class="n">test_losses</span><span class="p">,</span> <span class="n">test_accs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training No Dropout...
+Epoch 1: Train Loss = 0.2699, Test Acc = 0.9623
+Epoch 2: Train Loss = 0.1010, Test Acc = 0.9671
+Epoch 3: Train Loss = 0.0632, Test Acc = 0.9778
+Epoch 4: Train Loss = 0.0448, Test Acc = 0.9771
+Epoch 5: Train Loss = 0.0314, Test Acc = 0.9808
+Epoch 6: Train Loss = 0.0226, Test Acc = 0.9815
+Epoch 7: Train Loss = 0.0170, Test Acc = 0.9820
+Epoch 8: Train Loss = 0.0125, Test Acc = 0.9817
+Epoch 9: Train Loss = 0.0123, Test Acc = 0.9812
+Epoch 10: Train Loss = 0.0071, Test Acc = 0.9828
+Epoch 11: Train Loss = 0.0052, Test Acc = 0.9807
+Epoch 12: Train Loss = 0.0090, Test Acc = 0.9779
+Epoch 13: Train Loss = 0.0103, Test Acc = 0.9824
+Epoch 14: Train Loss = 0.0035, Test Acc = 0.9848
+Epoch 15: Train Loss = 0.0010, Test Acc = 0.9843
+Epoch 16: Train Loss = 0.0013, Test Acc = 0.9831
+Epoch 17: Train Loss = 0.0122, Test Acc = 0.9778
+Epoch 18: Train Loss = 0.0069, Test Acc = 0.9774
+Epoch 19: Train Loss = 0.0041, Test Acc = 0.9825
+Epoch 20: Train Loss = 0.0017, Test Acc = 0.9844
+Training Dropout (p=0.5)...
+Epoch 1: Train Loss = 0.3192, Test Acc = 0.9559
+Epoch 2: Train Loss = 0.1403, Test Acc = 0.9714
+Epoch 3: Train Loss = 0.1032, Test Acc = 0.9736
+Epoch 4: Train Loss = 0.0833, Test Acc = 0.9800
+Epoch 5: Train Loss = 0.0687, Test Acc = 0.9774
+Epoch 6: Train Loss = 0.0601, Test Acc = 0.9796
+Epoch 7: Train Loss = 0.0504, Test Acc = 0.9815
+Epoch 8: Train Loss = 0.0453, Test Acc = 0.9818
+Epoch 9: Train Loss = 0.0420, Test Acc = 0.9820
+Epoch 10: Train Loss = 0.0376, Test Acc = 0.9828
+Epoch 11: Train Loss = 0.0330, Test Acc = 0.9822
+Epoch 12: Train Loss = 0.0313, Test Acc = 0.9839
+Epoch 13: Train Loss = 0.0291, Test Acc = 0.9844
+Epoch 14: Train Loss = 0.0271, Test Acc = 0.9848
+Epoch 15: Train Loss = 0.0258, Test Acc = 0.9833
+Epoch 16: Train Loss = 0.0247, Test Acc = 0.9826
+Epoch 17: Train Loss = 0.0229, Test Acc = 0.9830
+Epoch 18: Train Loss = 0.0215, Test Acc = 0.9844
+Epoch 19: Train Loss = 0.0216, Test Acc = 0.9838
+Epoch 20: Train Loss = 0.0208, Test Acc = 0.9845
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot accuracy</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Test Accuracy Comparison&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/090824eafbc2a0efe02c629d3074787e0e8e3b404a32bbb31ab50f8f811cecff.png" src="../../../_images/090824eafbc2a0efe02c629d3074787e0e8e3b404a32bbb31ab50f8f811cecff.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">no_dropout_loss</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;No Dropout&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dropout_loss</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;Dropout (p=0.5)&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">no_dropout_loss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;No Dropout&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">dropout_loss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Dropout (p=0.5)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Training Loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training Loss Comparison&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/d622a295aed40e23a94385d7c8add3b4f0bdde55d6b8d926c2dc50359b68414e.png" src="../../../_images/d622a295aed40e23a94385d7c8add3b4f0bdde55d6b8d926c2dc50359b68414e.png" />
+</div>
+</div>
+</section>
+<section id="summary-of-results">
+<h2><strong>Summary of Results</strong><a class="headerlink" href="#summary-of-results" title="Link to this heading">#</a></h2>
+<p>To evaluate the impact of dropout on model performance, two models were trained on MNIST:</p>
+<p><strong>Model A</strong> — No Dropout <br>
+<strong>Model B</strong> — Dropout (p = 0.5)</p>
+<p>Both models were trained for 20 epochs using the same optimizer, batch size, and architecture (except for dropout). Below are the training loss and test accuracy values recorded after each epoch.</p>
+<section id="training-loss">
+<h3><strong>Training Loss</strong><a class="headerlink" href="#training-loss" title="Link to this heading">#</a></h3>
+<p>The <strong>No Dropout model</strong> showed a <strong>clear tendency to overfit the training data</strong>, achieving a significantly lower loss across all epochs compared to the Dropout model.</p>
+<ul class="simple">
+<li><p><strong>No Dropout</strong>: The training loss drops extremely fast, reaching near-zero values. This indicates the model is memorizing the training set efficiently.</p></li>
+<li><p><strong>Dropout (p=0.5)</strong>: The training loss remains consistently higher. This is the expected cost of regularization; the Dropout layers intentionally introduce noise, making it harder for the model to perfectly fit the training set.</p></li>
+</ul>
+</section>
+<section id="test-accuracy">
+<h3><strong>Test Accuracy</strong><a class="headerlink" href="#test-accuracy" title="Link to this heading">#</a></h3>
+<p>The <strong>Dropout model</strong> demonstrated <strong>better overall generalization</strong> by the end of the 20 epochs, effectively mitigating the overfitting observed in the unregularized model.</p>
+<ul class="simple">
+<li><p><strong>No Dropout</strong>: The Test Accuracy curve shows clear signs of instability and overfitting. After peaking around Epoch 14-15, the accuracy begins to fluctuate and dip significantly, indicating that the extremely low training loss is not translating into stable performance on unseen data.</p></li>
+<li><p><strong>Dropout (p=0.5)</strong>: The Test Accuracy curve is much smoother and more stable. It continues to improve steadily over the entire duration, matching the peak accuracy of the No Dropout model at Epoch 14 and ultimately achieving a stable final accuracy.</p></li>
+</ul>
+<p>Overall, the <strong>Dropout model</strong> provides <strong>more robust and consistent performance</strong>, suggesting it will generalize better on average compared to the volatile No Dropout model.</p>
+</section>
+</section>
+<section id="analysis-and-insights">
+<h2><strong>Analysis and Insights</strong><a class="headerlink" href="#analysis-and-insights" title="Link to this heading">#</a></h2>
+<p>The results confirm that the unregularized model suffered from overfitting. The No Dropout model’s training loss plummeted to $\mathbf{0.0017}$ by Epoch 20. This near-zero loss confirms the model had almost perfectly memorized the training data, including any noise or unique patterns. The high capacity allowed the model’s test accuracy to become unstable and volatile. After peaking at $\mathbf{0.9848}$ (Epoch 14), it began a visible decline and fluctuation (e.g., dropping to $0.9774$ by Epoch 18). This sharp divergence between falling training loss and volatile test accuracy is the signature sign of overfitting. The model’s excellent performance on the training set did not reliably translate to unseen test data.</p>
+<p>The Dropout model demonstrates that regularization leads to a more robust, stable model. The Dropout model maintains a much higher training loss ($\mathbf{0.0208}$ at Epoch 20). This cost is intentional; the $p=0.5$ rate ensures that the network cannot rely on any single set of features, preventing full memorization. Despite the higher training loss, the Dropout model’s test accuracy curve is significantly smoother and more stable across the 20 epochs. It reaches a competitive peak and maintains a high final value ($\mathbf{0.9845}$), which is consistent and reliable.</p>
+</section>
+<section id="conclusion">
+<h2><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>The experiment validates <strong>Dropout</strong> as an <strong>effective regularization method</strong>. The No Dropout model achieved a near-zero training loss ($\mathbf{0.0017}$), indicating full memorization, but its test accuracy was unstable and volatile, confirming overfitting. The Dropout model, despite a higher training loss ($\mathbf{0.0208}$), maintained a smoother and more stable test accuracy curve, leading to a robust final performance ($\mathbf{0.9845}$) that was superior to the unregularized model’s reliability. Dropout successfully sacrifices minimal training performance to achieve better generalization on unseen data.</p>
+</section>
+<section id="references">
+<h2><strong>References</strong><a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Piyush Kashyap, Understanding Dropout in Deep Learning: A Guide to Reducing Overfitting (https://medium.com/&#64;piyushkashyap045/understanding-dropout-in-deep-learning-a-guide-to-reducing-overfitting-26cbb68d5575) <br></p></li>
+<li><p>Towards Data Science, Dropout in Neural Networks (https://towardsdatascience.com/dropout-in-neural-networks-47a162d621d9/) <br></p></li>
+<li><p>GeeksForGeeks, Dropout Regularization in Deep Learning (https://www.geeksforgeeks.org/deep-learning/dropout-regularization-in-deep-learning/) <br></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./mybook/content/Blog"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><strong>Introduction</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-dropout"><strong>What is Dropout?</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimentation-mnist-classification-with-and-without-dropout"><strong>Experimentation: MNIST Classification With and Without Dropout</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-results"><strong>Summary of Results</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-loss"><strong>Training Loss</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-accuracy"><strong>Test Accuracy</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-insights"><strong>Analysis and Insights</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion"><strong>Conclusion</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references"><strong>References</strong></a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Visaviern Mosqueda
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
