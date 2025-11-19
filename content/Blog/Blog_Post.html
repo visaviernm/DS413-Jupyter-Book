@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -193,8 +193,6 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Blog</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a></li>
-
-
 </ul>
 
     </div>
@@ -407,16 +405,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><strong>Introduction</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-dropout"><strong>What is Dropout?</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimentation-mnist-classification-with-and-without-dropout"><strong>Experimentation: MNIST Classification With and Without Dropout</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-results"><strong>Summary of Results</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-loss"><strong>Training Loss</strong></a></li>
@@ -427,9 +422,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion"><strong>Conclusion</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references"><strong>References</strong></a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -451,10 +443,8 @@ document.write(`
 <p>Dropout is a regularization technique that randomly turns off a fraction of neurons during training. At each forward pass, neurons are “dropped” with probability p, meaning their output is set to 0.</p>
 <p><strong>Formula:</strong></p>
 </section>
-</section>
-</section>
 <section id="tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">
-<h1>$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,<a class="headerlink" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p" title="Link to this heading">#</a></h1>
+<h3>$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,<a class="headerlink" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p" title="Link to this heading">#</a></h3>
 <p>Where:</p>
 <ul class="simple">
 <li><p>$h_i$ = original activation,</p></li>
@@ -464,16 +454,18 @@ document.write(`
 <p>During inference, no neurons are dropped. Instead, activations are scaled to match expected output:</p>
 </section>
 <section id="h-i-text-test-1-p-cdot-h-i">
-<h1>$h_i^\text{test} = (1 - p) \cdot h_i$<a class="headerlink" href="#h-i-text-test-1-p-cdot-h-i" title="Link to this heading">#</a></h1>
+<h3>$h_i^\text{test} = (1 - p) \cdot h_i$<a class="headerlink" href="#h-i-text-test-1-p-cdot-h-i" title="Link to this heading">#</a></h3>
 <p>This forces the network to not rely mostly on a specific set of neurons, this encourages a redundant feature representation, better generalization, and reduction of co-adaptation among neurons.</p>
+</section>
 <section id="why-it-works">
-<h2><strong>Why it Works?</strong><a class="headerlink" href="#why-it-works" title="Link to this heading">#</a></h2>
+<h3><strong>Why it Works?</strong><a class="headerlink" href="#why-it-works" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Prevents Overfitting - By turning off neurons randomly, dropout simulates training many different “thinner” networks. This makes the final model behave like an ensemble, improving robustness.</p></li>
 <li><p>Improves Generalization - Dropout discourages the model from memorizing the training set. It encourages learning distributed representations rather than relying on a few strong feature detectors.</p></li>
 <li><p>Adds Noise to Training - This intentional noise behaves like stochastic regularization, smoothing the loss landscape and preventing sharp minima.</p></li>
 <li><p>Computationally Cheap - Dropout only requires multiplying activations by a random mask—no extra parameters added.</p></li>
 </ol>
+</section>
 </section>
 <section id="experimentation-mnist-classification-with-and-without-dropout">
 <h2><strong>Experimentation: MNIST Classification With and Without Dropout</strong><a class="headerlink" href="#experimentation-mnist-classification-with-and-without-dropout" title="Link to this heading">#</a></h2>
@@ -807,16 +799,13 @@ Epoch 20: Train Loss = 0.0208, Test Acc = 0.9845
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Dropout: Why Forgetting Helps Neural Networks Learn Better</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><strong>Introduction</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-dropout"><strong>What is Dropout?</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tilde-h-i-h-i-cdot-r-i-quad-r-i-sim-text-bernoulli-1-p">$\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)$,</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h-i-text-test-1-p-cdot-h-i">$h_i^\text{test} = (1 - p) \cdot h_i$</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-works"><strong>Why it Works?</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimentation-mnist-classification-with-and-without-dropout"><strong>Experimentation: MNIST Classification With and Without Dropout</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-results"><strong>Summary of Results</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-loss"><strong>Training Loss</strong></a></li>
@@ -827,9 +816,6 @@ Epoch 20: Train Loss = 0.0208, Test Acc = 0.9845
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion"><strong>Conclusion</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references"><strong>References</strong></a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
