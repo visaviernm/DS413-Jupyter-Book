@@ -1,20 +1,18 @@
+# Revised _toc.yml structure
 format: jb-book
 root: content/index
 
-sections:
+parts:
   - caption: "Lectures"
-    sections:
-      - file: content/Lecture/Lecture_Task_1.ipynb
-
-  - caption: "Laboratory"
-    sections:
-      - file: content/Laboratory/Laboratory_Task_1.ipynb
-      - file: content/Laboratory/Laboratory_Task_2.ipynb
-      - file: content/Laboratory/Laboratory_Task_3.ipynb
-      - file: content/Laboratory/Laboratory_Task_4.ipynb
-      - file: content/Laboratory/Laboratory_Task_5.ipynb
-      - file: content/Laboratory/Laboratory_Task_6.ipynb
-
+    chapters:
+      - file: content/Lecture/Lecture_Task_1
+  - caption: "Laboratory" 
+    chapters:
+      - file: content/Laboratory/Laboratory_Task_1
+      - file: content/Laboratory/Laboratory_Task_2
+      - file: content/Laboratory/Laboratory_Task_3
+      - file: content/Laboratory/Laboratory_Task_4
+      - file: content/Laboratory/Laboratory_Task_5
   - caption: "Blog"
-    sections:
-      - file: content/Blog/Blog_Post.ipynb
+    chapters:
+      - file: content/Blog/Blog_Post
