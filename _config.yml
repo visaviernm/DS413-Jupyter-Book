@@ -1,0 +1,28 @@
+title: "DS413 Jupyter Book"
+author: "Visaviern Mosqueda"
+logo: "logo.png"
+
+repository:
+  url: https://github.com/visaviernm/DS413-Jupyter-Book-ver2
+  branch: main 
+
+html:
+  use_issues_button: true
+  use_repository_button: true
+  use_edit_page_button: true
+  extra_navbar: "<p>DS413 Jupyter Book</p>"
+  home_page_in_toc: true
+
+execute:
+  execute_notebooks: "auto"
+  timeout: 120
+
+parse:
+  myst_enable_extensions:
+    - amsmath  
+    - colon_fence
+    - deflist
+    - html_image
+
+latex:
+  latex_engine: pdflatex
