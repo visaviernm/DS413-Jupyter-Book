@@ -1,6 +1,6 @@
 # Revised _toc.yml structure
 format: jb-book
-root: content/index
+root: content/intro
 
 parts:
   - caption: "Lectures"
@@ -14,6 +14,7 @@ parts:
       - file: content/Laboratory/Laboratory_Task_4
       - file: content/Laboratory/Laboratory_Task_5
       - file: content/Laboratory/Laboratory_Task_6
+      - file: content/Laboratory/Laboratory_Task_7
   - caption: "Blog"
     chapters:
       - file: content/Blog/Blog_Post
