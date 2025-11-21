@@ -1,20 +1,19 @@
-# Revised _toc.yml structure
 format: jb-book
-root: content/intro
+root: intro
 
 parts:
   - caption: "Lectures"
     chapters:
-      - file: content/Lecture/Lecture_Task_1
+      - file: Lecture/Lecture_Task_1
   - caption: "Laboratory" 
     chapters:
-      - file: content/Laboratory/Laboratory_Task_1
-      - file: content/Laboratory/Laboratory_Task_2
-      - file: content/Laboratory/Laboratory_Task_3
-      - file: content/Laboratory/Laboratory_Task_4
-      - file: content/Laboratory/Laboratory_Task_5
-      - file: content/Laboratory/Laboratory_Task_6
-      - file: content/Laboratory/Laboratory_Task_7
+      - file: Laboratory/Laboratory_Task_1
+      - file: Laboratory/Laboratory_Task_2
+      - file: Laboratory/Laboratory_Task_3
+      - file: Laboratory/Laboratory_Task_4
+      - file: Laboratory/Laboratory_Task_5
+      - file: Laboratory/Laboratory_Task_6
+      - file: Laboratory/Laboratory_Task_7
   - caption: "Blog"
     chapters:
-      - file: content/Blog/Blog_Post
+      - file: Blog/Blog_Post
