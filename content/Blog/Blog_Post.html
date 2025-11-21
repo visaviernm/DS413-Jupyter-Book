@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/Blog/Blog_Post';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Laboratory Task 6" href="../Laboratory/Laboratory_Task_6.html" />
+    <link rel="prev" title="Lab Activity 201: Exploring Hyperparameters" href="../Laboratory/Laboratory_Task_7.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -141,7 +141,7 @@
     
   
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../intro.html">
   
   
   
@@ -173,7 +173,7 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../index.html">
+                <a class="reference internal" href="../intro.html">
                     Welcome to my Jupyter Book for DS413: Deep Learning
                 </a>
             </li>
@@ -190,6 +190,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_4.html">Laboratory Task 4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_5.html">Laboratory Task 5</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_6.html">Laboratory Task 6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Laboratory/Laboratory_Task_7.html">Lab Activity 201: Exploring Hyperparameters</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Blog</span></p>
 <ul class="current nav bd-sidenav">
@@ -441,9 +442,7 @@ document.write(`
 <h3><strong>What is Dropout?</strong><a class="headerlink" href="#what-is-dropout" title="Link to this heading">#</a></h3>
 <p>Dropout is a regularization technique that randomly turns off a fraction of neurons during training. At each forward pass, neurons are “dropped” with probability p, meaning their output is set to 0.</p>
 <p><strong>Formula:</strong></p>
-<p>$$
-\tilde{h}_i = h_i \cdot r_i,\quad r_i \sim \text{Bernoulli}(1 - p)
-$$</p>
+<p><img alt="Alt Text" src="workspaces/DS413-Jupyter-Book-ver2/mybook/content/Blog/formula-1.png" /></p>
 <p>Where:</p>
 <ul class="simple">
 <li><p>$h_i$ = original activation,</p></li>
@@ -451,9 +450,7 @@ $$</p>
 <li><p>$p$ = dropout rate</p></li>
 </ul>
 <p>During inference, no neurons are dropped. Instead, activations are scaled to match expected output:</p>
-<p>$$
-h_i^\text{test} = (1 - p) \cdot h_i
-$$</p>
+<p><img alt="Alt Text" src="workspaces/DS413-Jupyter-Book-ver2/mybook/content/Blog/formula-2.png" /></p>
 <p>This forces the network to not rely mostly on a specific set of neurons, this encourages a redundant feature representation, better generalization, and reduction of co-adaptation among neurons.</p>
 </section>
 <section id="why-it-works">
@@ -493,14 +490,13 @@ Optimizer: Adam <br></p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># import libraries</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;torchvision&#39;
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;torch&#39;
 </pre></div>
 </div>
 </div>
@@ -727,12 +723,12 @@ Epoch 20: Train Loss = 0.0208, Test Acc = 0.9845
 </section>
 <section id="analysis-and-insights">
 <h2><strong>Analysis and Insights</strong><a class="headerlink" href="#analysis-and-insights" title="Link to this heading">#</a></h2>
-<p>The results confirm that the unregularized model suffered from overfitting. The No Dropout model’s training loss plummeted to $\mathbf{0.0017}$ by Epoch 20. This near-zero loss confirms the model had almost perfectly memorized the training data, including any noise or unique patterns. The high capacity allowed the model’s test accuracy to become unstable and volatile. After peaking at $\mathbf{0.9848}$ (Epoch 14), it began a visible decline and fluctuation (e.g., dropping to $0.9774$ by Epoch 18). This sharp divergence between falling training loss and volatile test accuracy is the signature sign of overfitting. The model’s excellent performance on the training set did not reliably translate to unseen test data.</p>
-<p>The Dropout model demonstrates that regularization leads to a more robust, stable model. The Dropout model maintains a much higher training loss ($\mathbf{0.0208}$ at Epoch 20). This cost is intentional; the $p=0.5$ rate ensures that the network cannot rely on any single set of features, preventing full memorization. Despite the higher training loss, the Dropout model’s test accuracy curve is significantly smoother and more stable across the 20 epochs. It reaches a competitive peak and maintains a high final value ($\mathbf{0.9845}$), which is consistent and reliable.</p>
+<p>The results confirm that the <strong>unregularized model suffered from overfitting</strong>. The No Dropout model’s training loss plummeted to <strong>0.0017</strong> by Epoch 20. This near-zero loss confirms the model had <strong>almost perfectly memorized the training data</strong>, including any noise or unique patterns. The high capacity allowed the model’s test accuracy to become unstable and volatile. After peaking at <strong>0.9848</strong> (Epoch 14), it began a visible decline and fluctuation (e.g., dropping to <strong>0.9774</strong> by Epoch 18). This sharp divergence between falling training loss and volatile test accuracy is the signature sign of overfitting. The model’s excellent performance on the training set did not reliably translate to unseen test data.</p>
+<p>The Dropout model demonstrates that <strong>regularization leads to a more robust, stable model</strong>. The Dropout model maintains a much higher training loss (<strong>0.0208</strong> at Epoch 20). This cost is intentional; the <strong>p=0.5</strong> rate ensures that the network cannot rely on any single set of features, preventing full memorization. Despite the higher training loss, the Dropout model’s test accuracy curve is <strong>significantly smoother and more stable</strong> across the 20 epochs. It reaches a competitive peak and maintains a high final value <strong>0.9845</strong>, which is <strong>consistent and reliable</strong>.</p>
 </section>
 <section id="conclusion">
 <h2><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
-<p>The experiment validates <strong>Dropout</strong> as an <strong>effective regularization method</strong>. The No Dropout model achieved a near-zero training loss ($\mathbf{0.0017}$), indicating full memorization, but its test accuracy was unstable and volatile, confirming overfitting. The Dropout model, despite a higher training loss ($\mathbf{0.0208}$), maintained a smoother and more stable test accuracy curve, leading to a robust final performance ($\mathbf{0.9845}$) that was superior to the unregularized model’s reliability. Dropout successfully sacrifices minimal training performance to achieve better generalization on unseen data.</p>
+<p>The experiment validates <strong>Dropout</strong> as an <strong>effective regularization method</strong>. The No Dropout model achieved a near-zero training loss <strong>0.0017</strong>, indicating full memorization, but its test accuracy was unstable and volatile, confirming overfitting. The Dropout model, despite a higher training loss <strong>0.0208</strong>, maintained a smoother and more stable test accuracy curve, leading to a robust final performance <strong>0.9845</strong> that was superior to the unregularized model’s reliability. Dropout successfully sacrifices minimal training performance to achieve better generalization on unseen data.</p>
 </section>
 <section id="references">
 <h2><strong>References</strong><a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
@@ -775,12 +771,12 @@ Epoch 20: Train Loss = 0.0208, Test Acc = 0.9845
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Laboratory/Laboratory_Task_6.html"
+       href="../Laboratory/Laboratory_Task_7.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Laboratory Task 6</p>
+        <p class="prev-next-title">Lab Activity 201: Exploring Hyperparameters</p>
       </div>
     </a>
 </div>
